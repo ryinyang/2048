@@ -59,18 +59,22 @@ class Grid:
         if direction == 'UP':
             for c in range(4):
                 shifted = []
+                merged = False
                 for r in range(4):
                     currTile = self.grid[r][c]
                     if currTile.val != 0:
                         if len(shifted) > 0:
-                            if shifted[-1] == currTile:
+                            if shifted[-1] == currTile and not merged:
+                                merged = True
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
                                 self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
+                                merged = False
                         else:
                             shifted.append(currTile)
+                            merged = False
 
                 # Copy over new column
                 for i in range(4 - len(shifted)):
@@ -81,19 +85,23 @@ class Grid:
         elif direction == 'RIGHT':
             for r in range(4):
                 shifted = []
+                merged = False
                 for c in range(3, -1, -1):
                     currTile = self.grid[r][c]
                     if currTile.val != 0:
                         if len(shifted) > 0:
                             # Merge similar tiles
-                            if shifted[-1].val == currTile.val:
+                            if shifted[-1].val == currTile.val and not merged:
+                                merged = True
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
                                 self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
+                                merged = False
                         else:
                             shifted.append(currTile)
+                            merged = False
 
                 # Copy over new row
                 for i in range(4 - len(shifted)):
@@ -103,17 +111,21 @@ class Grid:
         elif direction == 'DOWN':
             for c in range(4):
                 shifted = []
+                merged = False
                 for r in range(3, -1, -1):
                     currTile = self.grid[r][c]
                     if currTile.val != 0:
                         if len(shifted) > 0:
-                            if shifted[-1] == currTile:
+                            if shifted[-1] == currTile and not merged:
+                                merged = True
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
                                 self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
+                                merged = False
                         else:
+                            merged = False
                             shifted.append(currTile)
 
                 # Copy over new column
@@ -126,22 +138,26 @@ class Grid:
         elif direction == 'LEFT':
             for r in range(4):
                 shifted = []
+                merged = False
                 for c in range(4):
                     currTile = self.grid[r][c]
                     if currTile.val != 0:
                         if len(shifted) > 0:
                             # Merge similar tiles
-                            if shifted[-1].val == currTile.val:
+                            if shifted[-1].val == currTile.val and not merged:
+                                merged = True
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
                                 self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
+                                merged = False
                         else:
                             shifted.append(currTile)
+                            merged = False
 
                 # Copy over new row
-                for i in range(4 - len(shifted)):
+                for i in range(4 - len(shifted), -1, -1):
                     shifted.append(Tile(0))
                 self.grid[r] = list(shifted)
 

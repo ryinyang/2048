@@ -39,6 +39,16 @@ class TestStringMethods(unittest.TestCase):
         test.slide('DOWN')
         self.assertEqual(test, true)
 
+        test = Grid([[4, 2, 2, 4], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+        true = Grid([[4, 4, 4, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+        test.slide('LEFT')
+        self.assertEqual(true, test)
+
+        test = Grid([[4, 2, 2, 4], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+        true = Grid([[0, 4, 4, 4], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+        test.slide('RIGHT')
+        self.assertEqual(true, test)
+
 if __name__ == '__main__':
     os.system('cls')
     unittest.main()
