@@ -19,6 +19,7 @@ if __name__ == '__main__':
     clear()
     print('Welcome to 2048')
     
+    # game = Grid([[128,128,128,128], [128,128,128,128], [128,128,128,128], [128,128,128,128]])
     game = Grid()
 
     # Main game logic

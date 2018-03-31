@@ -27,8 +27,12 @@ class Grid:
         ret = ''
         for row in self.grid:
             for t in row:
-                ret += str(t.val) + ' '
-            ret += '\n'
+                if t.val != 0:
+                    ret += '{: ^6}'.format(str(t.val))
+                else:
+                    ret += '{: ^6}'.format('_')
+                # ret += str(t.val) + ' '
+            ret += '\n\n'
         return ret
 
     def __repr__(self):
@@ -41,16 +45,9 @@ class Grid:
                     return False
         return True
 
-    def checkGameOver():
+    def checkGameOver(self):
         """
         Returns True if there are no more moves to make, else False
-        """
-        pass
-
-    def mergeTiles():
-        """
-        Merge similar tiles together
-        :return: None
         """
         pass
 
