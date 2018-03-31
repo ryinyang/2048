@@ -1,5 +1,6 @@
 import random
 import os
+from copy import deepcopy
 from grid import Grid
 
 def convert(move):
@@ -27,6 +28,8 @@ if __name__ == '__main__':
         move = input('To play: \n    w: UP\n    a: LEFT\n    s: DOWN\n    d: RIGHT\n')
         if move.lower() == 'c':
             break
+        game_old = deepcopy(game)
         game.slide(convert(move))
-        game.addTile()
+        if game_old != game:
+            game.addTile()
     print('Thanks for playing!')
