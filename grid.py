@@ -3,8 +3,10 @@ from tile import Tile
 
 class Grid:
     grid = [[]]
+    score = 0
 
     def __init__(self, arrays=None):
+        self.score = 0
         # Creates a random grid with 2 random tiles
         if not arrays:
             print('Creating random grid')
@@ -67,6 +69,7 @@ class Grid:
                             if shifted[-1] == currTile:
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
+                                self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
                         else:
@@ -89,6 +92,7 @@ class Grid:
                             if shifted[-1].val == currTile.val:
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
+                                self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
                         else:
@@ -109,6 +113,7 @@ class Grid:
                             if shifted[-1] == currTile:
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
+                                self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
                         else:
@@ -132,6 +137,7 @@ class Grid:
                             if shifted[-1].val == currTile.val:
                                 shifted.pop()
                                 shifted.append(Tile(currTile.val*2))
+                                self.score += currTile.val * 2
                             else:
                                 shifted.append(currTile)
                         else:

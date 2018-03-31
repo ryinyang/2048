@@ -24,6 +24,7 @@ if __name__ == '__main__':
     # Main game logic
     while(True):
         clear()
+        print('Score: {}'.format(game.score))
         print(game)
         move = input('To play: \n    w: UP\n    a: LEFT\n    s: DOWN\n    d: RIGHT\n')
         if move.lower() == 'c':
