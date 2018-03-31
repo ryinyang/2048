@@ -56,25 +56,31 @@ class Grid:
         Slides all the tiles in the direction of the key press
         :return: None
         """
+
+        def slideTiles(r, c):
+            """Helper function to slide the tiles and merge. Helps reduce redundant code"""
+            global merged
+            currTile = self.grid[r][c]
+            if currTile.val != 0:
+                if len(shifted) > 0:
+                    if shifted[-1] == currTile and not merged:
+                        merged = True
+                        shifted.pop()
+                        shifted.append(Tile(currTile.val*2))
+                        self.score += currTile.val * 2
+                    else:
+                        shifted.append(currTile)
+                        merged = False
+                else:
+                    shifted.append(currTile)
+                    merged = False
+
         if direction == 'UP':
             for c in range(4):
                 shifted = []
                 merged = False
                 for r in range(4):
-                    currTile = self.grid[r][c]
-                    if currTile.val != 0:
-                        if len(shifted) > 0:
-                            if shifted[-1] == currTile and not merged:
-                                merged = True
-                                shifted.pop()
-                                shifted.append(Tile(currTile.val*2))
-                                self.score += currTile.val * 2
-                            else:
-                                shifted.append(currTile)
-                                merged = False
-                        else:
-                            shifted.append(currTile)
-                            merged = False
+                    slideTiles(r, c)
 
                 # Copy over new column
                 for i in range(4 - len(shifted)):
@@ -87,21 +93,7 @@ class Grid:
                 shifted = []
                 merged = False
                 for c in range(3, -1, -1):
-                    currTile = self.grid[r][c]
-                    if currTile.val != 0:
-                        if len(shifted) > 0:
-                            # Merge similar tiles
-                            if shifted[-1].val == currTile.val and not merged:
-                                merged = True
-                                shifted.pop()
-                                shifted.append(Tile(currTile.val*2))
-                                self.score += currTile.val * 2
-                            else:
-                                shifted.append(currTile)
-                                merged = False
-                        else:
-                            shifted.append(currTile)
-                            merged = False
+                    slideTiles(r, c)
 
                 # Copy over new row
                 for i in range(4 - len(shifted)):
@@ -113,20 +105,7 @@ class Grid:
                 shifted = []
                 merged = False
                 for r in range(3, -1, -1):
-                    currTile = self.grid[r][c]
-                    if currTile.val != 0:
-                        if len(shifted) > 0:
-                            if shifted[-1] == currTile and not merged:
-                                merged = True
-                                shifted.pop()
-                                shifted.append(Tile(currTile.val*2))
-                                self.score += currTile.val * 2
-                            else:
-                                shifted.append(currTile)
-                                merged = False
-                        else:
-                            merged = False
-                            shifted.append(currTile)
+                    slideTiles(r, c)
 
                 # Copy over new column
                 for i in range(4 - len(shifted)):
@@ -140,24 +119,10 @@ class Grid:
                 shifted = []
                 merged = False
                 for c in range(4):
-                    currTile = self.grid[r][c]
-                    if currTile.val != 0:
-                        if len(shifted) > 0:
-                            # Merge similar tiles
-                            if shifted[-1].val == currTile.val and not merged:
-                                merged = True
-                                shifted.pop()
-                                shifted.append(Tile(currTile.val*2))
-                                self.score += currTile.val * 2
-                            else:
-                                shifted.append(currTile)
-                                merged = False
-                        else:
-                            shifted.append(currTile)
-                            merged = False
+                    slideTiles(r, c)
 
                 # Copy over new row
-                for i in range(4 - len(shifted), -1, -1):
+                for i in range(4 - len(shifted)):
                     shifted.append(Tile(0))
                 self.grid[r] = list(shifted)
 

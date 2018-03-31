@@ -21,11 +21,11 @@ if __name__ == '__main__':
     
     # game = Grid([[128,128,128,128], [128,128,128,128], [128,128,128,128], [128,128,128,128]])
     # game = Grid()
-    game = Grid([[4, 2, 2, 4], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+    game = Grid([[8, 4, 2, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
 
     # Main game logic
     while(True):
-        # clear()
+        clear()
         print('Score: {}'.format(game.score))
         print(game)
 
