@@ -142,23 +142,24 @@ class Grid:
                     shifted.append(Tile(0))
                 self.grid[r] = list(shifted)
 
-    def addTile(self):
+    def addTile(self,num=None, x=None, y=None):
         """
         Randomly adds a 2 or a 4 tile into an open space
         :return: None
         """
-        loc = []
-        nums = [2, 4]
+        if x == None or y == None or num == None:
+            loc = []
+            nums = [2, 4]
 
-        # Loop through grid and compile empty tiles
-        for i, r in enumerate(self.grid):
-            for j, c in enumerate(r):
-                if c.val == 0:
-                    loc.append((i,j))
+            # Loop through grid and compile empty tiles
+            for i, r in enumerate(self.grid):
+                for j, c in enumerate(r):
+                    if c.val == 0:
+                        loc.append((i,j))
 
-        # Choose a location and add a random value
-        coord = choice(loc)
-        self.grid[coord[0]][coord[1]].setVal(choice(nums))
+            # Choose a location and add a random value
+            coord = choice(loc)
+            self.grid[coord[0]][coord[1]].setVal(choice(nums))
 
     def checkWin():
         """
