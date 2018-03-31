@@ -26,11 +26,15 @@ if __name__ == '__main__':
         clear()
         print('Score: {}'.format(game.score))
         print(game)
+
+        # Get input from user and try move
         move = input('To play: \n    w: UP\n    a: LEFT\n    s: DOWN\n    d: RIGHT\n')
         if move.lower() == 'c':
             break
         game_old = deepcopy(game)
         game.slide(convert(move))
+
+        # Check if move was made
         if game_old != game:
             game.addTile()
     print('Thanks for playing!')
