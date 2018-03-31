@@ -166,7 +166,7 @@ class Grid:
             coord = choice(loc)
             self.grid[coord[0]][coord[1]].setVal(choice(nums))
 
-    def checkWin():
+    def checkWin(self):
         """
         Checks grid to see if there is a 2048 tile.
         :return: True if there is, else False
@@ -175,6 +175,6 @@ class Grid:
         # Loop through all tiles and check for 2048
         for r in range(4):
             for c in range(4):
-                if self.grid.val == 2048:
+                if self.grid[r][c].val == 2048:
                     return True
         return False
