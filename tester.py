@@ -52,7 +52,26 @@ class TestStringMethods(unittest.TestCase):
     def testGameOver(self):
         test = Grid([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
         self.assertTrue(test.checkGameOver())
-        
+
+    def testWin(self):
+        test = Grid([[2048, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+        self.assertTrue(test.checkWin())
+
+        test = Grid([[1024, 1024, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+        test.slide('LEFT')
+        self.assertTrue(test.checkWin())
+
+    def testDimensions(self):
+        test = Grid([[2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0]])
+        self.assertEqual(2, test.num_rows)
+        self.assertEqual(6, test.num_cols)
+
+        true = Grid([[0, 0, 0, 0, 0, 2], [0, 0, 0, 0, 0, 4]])
+        test.slide('RIGHT')
+        self.assertEqual(true, test)
+
+    # def testBadParams(self):
+    #     self.failUnlessRaises(AssertionError, Grid([1, 2, 3, 4]))
 
 if __name__ == '__main__':
     os.system('cls')

@@ -22,10 +22,19 @@ def restart():
 clear = lambda: os.system('cls')
 
 if __name__ == '__main__':
+    num_row = 4
+    num_col = 4
+
     clear()
     print('Welcome to 2048')
-    
-    game = Grid()
+
+    custom = input('Would you like a custom grid size? (y/n)')
+
+    if custom.lower() == 'y':
+        num_row = input('Enter number of rows: ')
+        num_col = input('Enter number of cols: ')
+
+    game = Grid(rows=num_row, cols=num_col)
     win = False
 
     # Main game logic
@@ -43,7 +52,7 @@ if __name__ == '__main__':
             else:
                 break
 
-        # Check for 2048
+        # Check for win condition
         if game.checkWin() and not win:
             print('You Win! Your score was {}\n'.format(game.score))
             cont = input('Continue? (y/n)')
