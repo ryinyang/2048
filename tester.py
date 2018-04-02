@@ -73,6 +73,11 @@ class TestStringMethods(unittest.TestCase):
     # def testBadParams(self):
     #     self.failUnlessRaises(AssertionError, Grid([1, 2, 3, 4]))
 
+    def testUndo(self):
+        test = Grid([[2, 2, 0, 0], [2, 0, 0, 0], [2, 4, 8, 16], [4, 4, 4, 4]])
+        true = Grid([[2, 2, 0, 0], [2, 0, 0, 0], [2, 4, 8, 16], [4, 4, 4, 4]])
+        # test.
+
 if __name__ == '__main__':
     os.system('cls')
     unittest.main()

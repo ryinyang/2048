@@ -75,8 +75,7 @@ if __name__ == '__main__':
 
         # Undo
         if move.lower() == 'u':
-            if stack.top():
-                game = stack.pop()
+            game.undo()
             continue
 
         stack.push(deepcopy(game))

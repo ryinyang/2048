@@ -1,15 +1,18 @@
 from random import randint, choice, choices
 from tile import Tile
 from copy import deepcopy
+from gridStack import GridStack
 
 class Grid:
     grid = [[]]
+    stack = None
     score = 0
     num_rows = 0
     num_cols = 0
 
     def __init__(self, arrays=None, cols=4, rows=4):
         self.score = 0
+        self.stack = GridStack()
 
         # Creates a random grid with 2 random tiles
         if not arrays:
@@ -173,6 +176,8 @@ class Grid:
             newVal = choices(nums, weights=[.9, .1], k=1)[0]
             self.grid[coord[0]][coord[1]].setVal(newVal)
 
+        # TODO: add grid to the stacks
+
     def checkWin(self):
         """
         Checks grid to see if there is a 2048 tile.
@@ -185,3 +190,12 @@ class Grid:
                 if self.grid[r][c].val == 2048:
                     return True
         return False
+
+
+    def undo(self):
+        """
+        Uses a stack to undo moves and reflects changes on the grid
+        :return: Nothing
+        """
+        if self.stack.top():
+            self.grid = self.stack.pop()
