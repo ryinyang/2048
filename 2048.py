@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
 
         # Get input from user and try move
-        move = input('To play: \n    w: UP\n    a: LEFT\n    s: DOWN\n    d: RIGHT\n    u: UNDO\n')
+        move = input('To play: \n    w: UP\tc: QUIT\n    a: LEFT\tu: UNDO\n    s: DOWN\n    d: RIGHT\n')
         if move.lower() == 'c':
             break
 

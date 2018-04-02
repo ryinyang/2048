@@ -11,6 +11,15 @@ class Grid:
     num_cols = 0
 
     def __init__(self, arrays=None, cols=4, rows=4):
+        """
+        Creates the Grid object
+
+        :arrays: 2d array that will populate the grid
+        :cols: number of columns in the grid
+        :rows: number of rows in the grid
+        :raises AssertionError: raises error when array is not rectangular
+        """
+
         self.score = 0
         self.stack = GridStack()
 
@@ -61,9 +70,8 @@ class Grid:
         return True
 
     def checkGameOver(self):
-        """
-        Returns True if there are no more moves to make, else False
-        """
+        """Returns True if there are no more moves to make, else False"""
+
         directions = ['UP', 'DOWN', 'LEFT', 'RIGHT']
         counter = 0
 
@@ -79,6 +87,8 @@ class Grid:
     def slide(self, direction):
         """
         Slides all the tiles in the direction of the key press
+
+        :direction: str representing where the tiles will slide
         :return: None
         """
 
@@ -155,33 +165,35 @@ class Grid:
                     shifted.append(Tile(0))
                 self.grid[r] = list(shifted)
 
-    def addTile(self,num=None, x=None, y=None):
+    def addTile(self):
         """
         Randomly adds a 2 or a 4 tile into an open space
-        :return: None
+
+        :return: None, adds tile to grid
         """
 
-        if x == None or y == None or num == None:
-            loc = []
-            nums = [2, 4]
+        loc = []  # Possible locations for new tiles
+        nums = [2, 4]  # The values of tiles
 
-            # Loop through grid and compile empty tiles
-            for i, r in enumerate(self.grid):
-                for j, c in enumerate(r):
-                    if c.val == 0:
-                        loc.append((i,j))
+        # Loop through grid and compile empty tiles
+        for i, r in enumerate(self.grid):
+            for j, c in enumerate(r):
+                if c.val == 0:
+                    loc.append((i,j))
 
-            # Choose a location and add a random value
-            coord = choice(loc)
-            newVal = choices(nums, weights=[.9, .1], k=1)[0]
-            self.grid[coord[0]][coord[1]].setVal(newVal)
+        # Choose a location and add a random value
+        coord = choice(loc)
+        newVal = choices(nums, weights=[.9, .1], k=1)[0]
+        self.grid[coord[0]][coord[1]].setVal(newVal)
 
-        # TODO: add grid to the stacks
+        # Push the grid to stack for undo
+        self.stack.push(deepcopy(self.grid))
 
     def checkWin(self):
         """
-        Checks grid to see if there is a 2048 tile.
-        :return: True if there is, else False
+        Checks grid to see if there is a 2048 tile
+
+        :return: True if there is a 2048 tile, else False
         """
 
         # Loop through all tiles and check for 2048
@@ -195,7 +207,8 @@ class Grid:
     def undo(self):
         """
         Uses a stack to undo moves and reflects changes on the grid
-        :return: Nothing
+
+        :return: None, grid itself is edited
         """
         if self.stack.top():
             self.grid = self.stack.pop()
