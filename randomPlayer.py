@@ -33,10 +33,11 @@ if __name__ == '__main__':
         num_moves = 0
 
         # Main game logic
-        while(True):
-            clear()
-            print('Trial: {}\nScore: {}    Number of Moves: {}'.format(i, game.score, num_moves))
-            print(game)
+        while True:
+            if num_moves % 100 == 0:
+                clear()
+                print('Trial: {}\nScore: {}    Number of Moves: {}'.format(i, game.score, num_moves))
+                print(game)
 
             # Check for game over
             if game.checkGameOver():
@@ -54,12 +55,16 @@ if __name__ == '__main__':
             # Only add tile when tiles moved
             if game_old != game:
                 game.addTile()
+                game.addTile()
+                game.addTile()
+                game.addTile()
+                game.addTile()
                 num_moves += 1
 
             # time.sleep(.1)
 
-        print('Thanks for playing!')
-        print('Number of moves: {}'.format(num_moves))
+        # print('Thanks for playing!')
+        # print('Number of moves: {}'.format(num_moves))
         trials.append((num_moves, game.score))
 
     print(trials)

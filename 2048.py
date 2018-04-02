@@ -2,6 +2,7 @@ import random
 import os
 from copy import deepcopy
 from grid import Grid
+from gridStack import GridStack
 
 def convert(move):
     if move.lower() == 'w':
@@ -31,10 +32,11 @@ if __name__ == '__main__':
     custom = input('Would you like a custom grid size? (y/n)')
 
     if custom.lower() == 'y':
-        num_row = input('Enter number of rows: ')
-        num_col = input('Enter number of cols: ')
+        num_row = int(input('Enter number of rows: '))
+        num_col = int(input('Enter number of cols: '))
 
     game = Grid(rows=num_row, cols=num_col)
+    stack = GridStack()
     win = False
 
     # Main game logic
@@ -67,14 +69,21 @@ if __name__ == '__main__':
 
 
         # Get input from user and try move
-        move = input('To play: \n    w: UP\n    a: LEFT\n    s: DOWN\n    d: RIGHT\n')
+        move = input('To play: \n    w: UP\n    a: LEFT\n    s: DOWN\n    d: RIGHT\n    u: UNDO\n')
         if move.lower() == 'c':
             break
-        game_old = deepcopy(game)
+
+        # Undo
+        if move.lower() == 'u':
+            if stack.top():
+                game = stack.pop()
+            continue
+
+        stack.push(deepcopy(game))
         game.slide(convert(move))
 
         # Only add tile when tiles moved
-        if game_old != game:
+        if stack.top() != game:
             game.addTile()
 
 
