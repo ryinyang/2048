@@ -1,7 +1,5 @@
 
 class GridStack:
-	stk = []
-	size = None
 
 	def __init__(self, size=10):
 		"""
@@ -10,13 +8,13 @@ class GridStack:
 		:size: number of grids to save
 		"""
 
-		self.stk = [None for i in range(size)]
+		self.stk = []
 		self.size = size
 
 	def __str__(self):
 		return str(self.stk)
 
-	def __repr(self):
+	def __repr__(self):
 		return self.__str__()
 
 	def push(self, item):
@@ -49,6 +47,6 @@ class GridStack:
 		"""
 
 		if self.stk:
-			return self.stk[len(self.stk)-1]
+			return self.stk[-1]
 		else:
 			return None

@@ -76,7 +76,9 @@ class TestStringMethods(unittest.TestCase):
     def testUndo(self):
         test = Grid([[2, 2, 0, 0], [2, 0, 0, 0], [2, 4, 8, 16], [4, 4, 4, 4]])
         true = Grid([[2, 2, 0, 0], [2, 0, 0, 0], [2, 4, 8, 16], [4, 4, 4, 4]])
-        # test.
+        test.slide('RIGHT')
+        test.undo()
+        self.assertEqual(test, true)
 
 if __name__ == '__main__':
     os.system('cls')

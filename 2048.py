@@ -15,7 +15,7 @@ def convert(move):
         return 'RIGHT'
 
 def restart():
-    clear()
+    # clear()
     game = Grid()
     print('Score: {}'.format(game.score))
     print(game)
@@ -25,6 +25,8 @@ clear = lambda: os.system('cls')
 if __name__ == '__main__':
     num_row = 4
     num_col = 4
+    stack = GridStack()
+    win = False
 
     clear()
     print('Welcome to 2048')
@@ -35,9 +37,8 @@ if __name__ == '__main__':
         num_row = int(input('Enter number of rows: '))
         num_col = int(input('Enter number of cols: '))
 
-    game = Grid(rows=num_row, cols=num_col)
-    stack = GridStack()
-    win = False
+    # game = Grid(rows=num_row, cols=num_col)
+    game = Grid([[1,2,3],[4,5,6], [7,8,9]])
 
     # Main game logic
     while(True):
@@ -50,7 +51,8 @@ if __name__ == '__main__':
             print('Game Over! Your score was {}\n'.format(game.score))
             replay = input('Play again? (y/n)')
             if replay.lower() == 'y':
-                restart()
+                game = Grid()
+                continue
             else:
                 break
 
@@ -67,22 +69,28 @@ if __name__ == '__main__':
                 else:
                     break
 
-
         # Get input from user and try move
-        move = input('To play: \n    w: UP\tc: QUIT\n    a: LEFT\tu: UNDO\n    s: DOWN\n    d: RIGHT\n')
+        move = input('To play: \n    w: UP\tc: QUIT\n    a: LEFT\tu: UNDO\n    s: DOWN\tr: RESTART\n    d: RIGHT\n')
         if move.lower() == 'c':
             break
 
         # Undo
         if move.lower() == 'u':
-            game.undo()
+            if stack.top():
+                game = stack.pop()
             continue
 
-        stack.push(deepcopy(game))
+        # Restart
+        if move.lower() == 'r':
+            game = Grid()
+            continue
+
+        game_old = deepcopy(game)
         game.slide(convert(move))
 
         # Only add tile when tiles moved
-        if stack.top() != game:
+        if game_old != game:
+            stack.push(game_old)
             game.addTile()
 
 

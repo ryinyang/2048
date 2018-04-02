@@ -4,11 +4,6 @@ from copy import deepcopy
 from gridStack import GridStack
 
 class Grid:
-    grid = [[]]
-    stack = None
-    score = 0
-    num_rows = 0
-    num_cols = 0
 
     def __init__(self, arrays=None, cols=4, rows=4):
         """
@@ -18,10 +13,12 @@ class Grid:
         :cols: number of columns in the grid
         :rows: number of rows in the grid
         :raises AssertionError: raises error when array is not rectangular
+
+        :TODO: fix undo
         """
 
         self.score = 0
-        self.stack = GridStack()
+        # self.stack = GridStack()
 
         # Creates a random grid with 2 random tiles
         if not arrays:
@@ -186,9 +183,6 @@ class Grid:
         newVal = choices(nums, weights=[.9, .1], k=1)[0]
         self.grid[coord[0]][coord[1]].setVal(newVal)
 
-        # Push the grid to stack for undo
-        self.stack.push(deepcopy(self.grid))
-
     def checkWin(self):
         """
         Checks grid to see if there is a 2048 tile
@@ -204,11 +198,15 @@ class Grid:
         return False
 
 
-    def undo(self):
-        """
-        Uses a stack to undo moves and reflects changes on the grid
+    # def undo(self):
+    #     """
+    #     Uses a stack to undo moves and reflects changes on the grid
 
-        :return: None, grid itself is edited
-        """
-        if self.stack.top():
-            self.grid = self.stack.pop()
+    #     :return: None, grid itself is edited
+    #     """
+    #     if self.stack.top():
+    #         self.grid = self.stack.pop()
+
+    # def rememberGrid(self):
+    #     self.stack.push(deepcopy(self.grid))
+    #     print(self.stack)
